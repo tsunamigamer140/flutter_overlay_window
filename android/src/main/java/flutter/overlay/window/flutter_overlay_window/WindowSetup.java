@@ -1,6 +1,5 @@
 package flutter.overlay.window.flutter_overlay_window;
 
-
 import android.view.Gravity;
 import android.view.WindowManager;
 
@@ -12,7 +11,7 @@ public abstract class WindowSetup {
 
     static int height = WindowManager.LayoutParams.MATCH_PARENT;
     static int width = WindowManager.LayoutParams.MATCH_PARENT;
-    static int flag = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+    static int flag = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL; // Updated flag to allow input
     static int gravity = Gravity.CENTER;
     static BasicMessageChannel<Object> messenger = null;
     static String overlayTitle = "Overlay is activated";
@@ -20,7 +19,6 @@ public abstract class WindowSetup {
     static String positionGravity = "none";
     static int notificationVisibility = NotificationCompat.VISIBILITY_PRIVATE;
     static boolean enableDrag = false;
-
 
     static void setNotificationVisibility(String name) {
         if (name.equalsIgnoreCase("visibilityPublic")) {
@@ -36,7 +34,8 @@ public abstract class WindowSetup {
 
     static void setFlag(String name) {
         if (name.equalsIgnoreCase("flagNotFocusable") || name.equalsIgnoreCase("defaultFlag")) {
-            flag = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+            // Removed FLAG_NOT_FOCUSABLE to allow input
+            flag = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
         }
         if (name.equalsIgnoreCase("flagNotTouchable") || name.equalsIgnoreCase("clickThrough")) {
             flag = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
@@ -49,7 +48,7 @@ public abstract class WindowSetup {
 
     static void showWhenLocked(String name) {
         if (name.equalsIgnoreCase("flagNotFocusable") || name.equalsIgnoreCase("defaultFlag")) {
-            flag = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+            flag = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL; // Ensures correct behavior for locked screens
         }
         if (name.equalsIgnoreCase("flagNotTouchable") || name.equalsIgnoreCase("clickThrough")) {
             flag = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
@@ -96,6 +95,5 @@ public abstract class WindowSetup {
             gravity = Gravity.BOTTOM | Gravity.RIGHT;
             return;
         }
-
     }
 }
